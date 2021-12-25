@@ -27,7 +27,7 @@ task("balance", "Prints an account's balance")
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "ganache",
   paths: {
     artifacts: './src/artifacts',
   },
@@ -35,14 +35,18 @@ module.exports = {
     hardhat: {
       chainId: 1337,
     },
+    ganache: {
+      url: "http://127.0.0.1:7545",
+      accounts: ["d02e51ed46e1a9d3fe4b081f5b88e5ea7074cb363e11289be48563daa73213f8"]
+    },
     // ropsten: {
     //   url: "https://ropsten.infura.io/v3/projectid",
     //   accounts: [process.env.a2key]
     // },
-    // rinkeby: {
-    //   url: "https://rinkeby.infura.io/v3/projectid",
-    //   accounts: [process.env.a2key]
-    // }
+    rinkeby: {
+      url: "https://eth-rinkeby.alchemyapi.io/v2/Lo5SBx5FcpJN2Ef030Rt8CoxI7w25G2I",
+      accounts: ["13da8f20993402a273fc4f8e707f6c2cf7e89b916938d3c5be55628dc106a848","f80571bad8a4745fc3a3aa4990f15cf9b6944b56b6445d9a6c7e5070ea0eb390"],
+    }
   },
   solidity: "0.8.3",
 };

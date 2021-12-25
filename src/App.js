@@ -1,16 +1,28 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ethers } from 'ethers'
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json'
 import Token from './artifacts/contracts/Token.sol/Token.json'
 
-const greeterAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-const tokenAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+const greeterAddress = "0x5AC0E3074e0ad5684Fb379a58e506a526d5aa17e"
+const tokenAddress = "0x3895bfEcdf9Ee2419b240f177fC79CB94AC461c0"
 
 function App() {
   const [greeting, setGreetingValue] = useState()
   const [userAccount, setUserAccount] = useState()
   const [amount, setAmount] = useState()
+  const [account, setAccount] = useState()
+
+  useEffect( () => {
+    didMount()
+  })
+
+  async function didMount(){
+    if (typeof window.ethereum !== 'undefined') {
+      const [acc] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      setAccount(acc)
+    }
+  }
 
   async function requestAccount() {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -27,7 +39,7 @@ function App() {
       } catch (err) {
         console.log("Error: ", err)
       }
-    }    
+    }
   }
 
   async function getBalance() {
@@ -69,6 +81,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h5>Your account: {account}</h5>
+        <br />
         <button onClick={fetchGreeting}>Fetch Greeting</button>
         <button onClick={setGreeting}>Set Greeting</button>
         <input onChange={e => setGreetingValue(e.target.value)} placeholder="Set greeting" />

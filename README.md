@@ -56,5 +56,9 @@ npx hardhat run scripts/deploy.js --network localhost
 6. Run the app
 
 ```sh
+
+npm i -D postcss@latest   // update lib 
+
+
 npm start
 ```
